@@ -1,5 +1,3 @@
--- https://github.com/AstroNvim/astrolsp
-
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -7,6 +5,7 @@
 
 ---@type LazySpec
 return {
+  -- https://github.com/AstroNvim/astrolsp
   "AstroNvim/astrolsp",
   ---type AstroLSPOpts
   opts = {
@@ -14,10 +13,25 @@ return {
       codelens = true,
       inlay_hints = true,
       semantic_tokens = true,
+      signature_help = true,
+    },
+    formatting = {
+      -- https://docs.astronvim.com/recipes/advanced_lsp/#customizing-auto-format-on-save
+      -- format_on_save = false,
+      -- format_on_save = {
+      --   enabled = true,
+      --   ignore_filetypes = { "typescript" },
+      -- },
+      filter = function(client)
+        if vim.bo.filetype == "typescript" then return client.name ~= "vtsls" end
+        return true
+      end,
     },
     config = {
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
       lua_ls = { settings = { Lua = { hint = { enable = true, arrayIndex = "Disable" } } } },
       vtsls = {
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#vtsls
         settings = {
           typescript = {
             updateImportsOnFileMove = { enabled = "always" },
@@ -46,29 +60,100 @@ return {
           },
         },
       },
-      rust_analyzer = {
+      eslint = {
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
         settings = {
-          ["rust-analyzer"] = {
-            check = {
-              command = "clippy",
-              extraArgs = {
-                "--no-deps",
-              },
-            },
+          codeActionOnSave = {
+            enable = true,
+            mode = "all",
+          },
+          rulesCustomizations = {
+            { rule = "*", severity = "warn" },
           },
         },
       },
-    },
-    autocmds = {
-      eslint_fix_on_save = {
-        cond = function(client) return client.name == "eslint" and vim.fn.exists ":EslintFixAll" > 0 end,
-        {
-          event = "BufWritePost",
-          desc = "Fix all eslint errors",
-          callback = function() vim.cmd.EslintFixAll() end,
+      -- rust_analyzer = {
+      --   -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#rust_analyzer
+      --   settings = {
+      --     ["rust-analyzer"] = {
+      --       check = {
+      --         command = "clippy",
+      --         extraArgs = {
+      --           "--no-deps",
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
+      gopls = {
+        -- https://docs.yandex-team.ru/arcadia-golang/getting-started#neovim-nvim-lspconfig
+        cmd = { "ya", "tool", "gopls", "serve" },
+        arcadiaIndexDirs = { "library/go", "education/services/admission" },
+        expandWorkspaceToModule = false,
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#gopls
+        analyses = {
+          ST1003 = true,
+          fieldalignment = false,
+          fillreturns = true,
+          nilness = true,
+          nonewvars = true,
+          shadow = true,
+          undeclaredname = true,
+          unreachable = true,
+          unusedparams = true,
+          unusedwrite = true,
+          useany = true,
+        },
+        codelenses = {
+          gc_details = true, -- Show a code lens toggling the display of gc's choices.
+          generate = true, -- show the `go generate` lens.
+          regenerate_cgo = true,
+          test = true,
+          tidy = true,
+          upgrade_dependency = true,
+          vendor = true,
+        },
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+        buildFlags = { "-tags", "integration" },
+        -- completeUnimported = true,
+        diagnosticsDelay = "500ms",
+        gofumpt = true,
+        matcher = "Fuzzy",
+        semanticTokens = true,
+        staticcheck = true,
+        symbolMatcher = "fuzzy",
+        usePlaceholders = true,
+      },
+      basedpyright = {
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#basedpyright
+        analysis = {
+          -- https://docs.basedpyright.com/latest/configuration/language-server-settings/
+          -- diagnosticSeverityOverrides = {
+          --   reportUnannotatedClassAttribute = "none",
+          --   reportMissingTypeStubs = "none",
+          -- },
+          --
         },
       },
     },
+    -- autocmds = {
+    --   -- eslint_fix_on_save = {
+    --   --   cond = function(client) return client.name == "eslint" and vim.fn.exists ":EslintFixAll" > 0 end,
+    --   --   {
+    --   --     event = "BufWritePost",
+    --   --     desc = "Fix all eslint errors",
+    --   --     callback = function() vim.cmd.EslintFixAll() end,
+    --   --   },
+    --   -- },
+    -- },
   },
   -- opts = {
   --   -- Configuration table of features provided by AstroLSP

@@ -5,55 +5,72 @@
 
 ---@type LazySpec
 return {
+  -- https://github.com/AstroNvim/astrocore
   "AstroNvim/astrocore",
-  ---@type AstroCoreOpts
-  opts = {
-    mappings = {
-      x = {
-        ["s"] = {
-          function() require("flash").jump() end,
-          desc = "Flash",
-        },
-        ["R"] = {
-          function() require("flash").treesitter_search() end,
-          desc = "Treesitter Search",
-        },
-        ["S"] = {
-          function() require("flash").treesitter() end,
-          desc = "Flash Treesitter",
-        },
-      },
-      o = {
-        ["r"] = {
-          function() require("flash").remote() end,
-          desc = "Remote Flash",
-        },
-        ["R"] = {
-          function() require("flash").treesitter_search() end,
-          desc = "Treesitter Search",
-        },
-        ["s"] = {
-          function() require("flash").jump() end,
-          desc = "Flash",
-        },
-        ["S"] = {
-          function() require("flash").treesitter() end,
-          desc = "Flash Treesitter",
-        },
-      },
-      n = {
-        ["s"] = {
-          function() require("flash").jump() end,
-          desc = "Flash",
-        },
-        ["S"] = {
-          function() require("flash").treesitter() end,
-          desc = "Flash Treesitter",
-        },
-      },
-    },
-  },
+  opts = function(_, opts)
+    local maps = opts.mappings
+    maps.x["s"] = {
+      function() require("flash").jump() end,
+      desc = "Flash",
+    }
+    maps.x["R"] = {
+      function() require("flash").treesitter_search() end,
+      desc = "Treesitter Search",
+    }
+    maps.x["S"] = {
+      function() require("flash").treesitter() end,
+      desc = "Flash Treesitter",
+    }
 
+    maps.o["r"] = {
+      function() require("flash").remote() end,
+      desc = "Remote Flash",
+    }
+    maps.o["R"] = {
+      function() require("flash").treesitter_search() end,
+      desc = "Treesitter Search",
+    }
+    maps.o["s"] = {
+      function() require("flash").jump() end,
+      desc = "Flash",
+    }
+    maps.o["S"] = {
+      function() require("flash").treesitter() end,
+      desc = "Flash Treesitter",
+    }
+
+    maps.n["s"] = {
+      function() require("flash").jump() end,
+      desc = "Flash",
+    }
+    maps.n["S"] = {
+      function() require("flash").treesitter() end,
+      desc = "Flash Treesitter",
+    }
+    maps.n["<Leader>e"] = {
+      "<Cmd>Neotree toggle reveal<CR>",
+      desc = "Toggle Explorer",
+    }
+
+    -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
+    -- maps.n["<Leader>bb"] = {
+    --   function() require("snacks").picker.buffers() end,
+    --   desc = "Buffers",
+    -- }
+    maps.n["<Leader>,"] = {
+      function() require("snacks").picker.buffers() end,
+      desc = "Buffers",
+    }
+    maps.n["<Leader>:"] = {
+      function() require("snacks").picker.command_history() end,
+      desc = "Command History",
+    }
+
+    -- See https://docs.astronvim.com/recipes/disable_tabline/
+    opts.options.opt.showtabline = 0
+  end,
+
+  ---@type AstroCoreOpts
   -- opts = {
   --   -- Configure core features of AstroNvim
   --   features = {

@@ -1,7 +1,7 @@
--- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/motion/flash-nvim
--- https://github.com/folke/flash.nvim
 ---@type LazySpec
 return {
+  -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/motion/flash-nvim
+  -- https://github.com/folke/flash.nvim
   "folke/flash.nvim",
   event = "VeryLazy",
   opts = {

@@ -13,6 +13,6 @@ return {
   -- { import = "astrocommunity.pack.sql" },
   { import = "astrocommunity.colorscheme.gruvbox-nvim" }, -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/colorscheme/gruvbox-nvim
   { import = "astrocommunity.diagnostics.trouble-nvim" }, -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/diagnostics/trouble-nvim
-  { import = "astrocommunity.diagnostics.lsp_lines-nvim" }, -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/diagnostics/lsp_lines-nvim
+  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" }, -- https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/diagnostics/lsp_lines-nvim
   -- import/override with your plugins folder
 }

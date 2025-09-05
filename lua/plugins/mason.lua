@@ -2,9 +2,9 @@
 
 ---@type LazySpec
 return {
-  -- use mason-lspconfig to configure LSP installations
-  -- https://github.com/williamboman/mason-lspconfig.nvim
   {
+    -- use mason-lspconfig to configure LSP installations
+    -- https://github.com/williamboman/mason-lspconfig.nvim
     "williamboman/mason-lspconfig.nvim",
     -- overrides `require("mason-lspconfig").setup(...)`
     opts = {
@@ -13,19 +13,31 @@ return {
         "vtsls",
         "eslint",
         "jsonls",
+        "taplo",
+        "gopls",
+        "ruff",
+        "basedpyright",
+        "buf_ls", -- https://github.com/bufbuild/buf
         -- add more arguments for adding more language servers
       },
     },
   },
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  -- https://github.com/jay-babu/mason-null-ls.nvim
   {
+    -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
+    -- https://github.com/jay-babu/mason-null-ls.nvim
     "jay-babu/mason-null-ls.nvim",
     -- overrides `require("mason-null-ls").setup(...)`
     opts = {
       ensure_installed = {
         "stylua",
         "selene",
+        "gomodifytags", -- https://github.com/fatih/gomodifytags
+        "iferr", -- https://github.com/koron/iferr
+        "impl",
+        "gotests", -- https://github.com/cweill/gotests
+        "goimports",
+        "isort",
+        "buf",
         -- add more arguments for adding more null-ls sources
       },
       handlers = {
@@ -47,9 +59,11 @@ return {
     -- overrides `require("mason-nvim-dap").setup(...)`
     opts = {
       ensure_installed = {
-        "python",
+        -- "python",
         "js",
         "codelldb",
+        "delve",
+        "debugpy",
         -- add more arguments for adding more debuggers
       },
     },
