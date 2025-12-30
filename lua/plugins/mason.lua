@@ -18,6 +18,8 @@ return {
         "ruff",
         "basedpyright",
         "buf_ls", -- https://github.com/bufbuild/buf
+        "clangd",
+        -- "sqls",
         -- add more arguments for adding more language servers
       },
     },
@@ -25,6 +27,7 @@ return {
   {
     -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
     -- https://github.com/jay-babu/mason-null-ls.nvim
+    -- https://github.com/nvimtools/none-ls.nvim
     "jay-babu/mason-null-ls.nvim",
     -- overrides `require("mason-null-ls").setup(...)`
     opts = {
@@ -38,6 +41,7 @@ return {
         "goimports",
         "isort",
         "buf",
+        "clang-format",
         -- add more arguments for adding more null-ls sources
       },
       handlers = {
@@ -51,6 +55,16 @@ return {
             })
           end
         end,
+        -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md#goimports
+        goimports = function(_source_name, _methods)
+          local null_ls = require "null-ls"
+          null_ls.register(null_ls.builtins.formatting.goimports.with {
+            -- command = "ya",
+            -- args = { "tool", "yoimports", "$DIRNAME" },
+            -- args = { "tool", "goimports", "-srcdir", "$DIRNAME" },
+            extra_args = { "-local", "a.yandex-team.ru" },
+          })
+        end,
       },
     },
   },
@@ -59,7 +73,7 @@ return {
     -- overrides `require("mason-nvim-dap").setup(...)`
     opts = {
       ensure_installed = {
-        -- "python",
+        "python",
         "js",
         "codelldb",
         "delve",

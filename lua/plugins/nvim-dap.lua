@@ -50,5 +50,14 @@ return {
     local vscode_filetypes = require("dap.ext.vscode").type_to_filetypes
     vscode_filetypes["node"] = js_filetypes
     vscode_filetypes["pwa-node"] = js_filetypes
+
+    -- dap.configurations.go = {
+    --   {
+    --     type = "delve",
+    --     name = "Debug",
+    --     request = "launch",
+    --     program = "${file}",
+    --   },
+    -- }
   end,
 }

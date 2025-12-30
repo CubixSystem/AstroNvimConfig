@@ -6,6 +6,7 @@ return {
   dependencies = {
     "mfussenegger/nvim-dap",
     {
+      -- https://github.com/jay-babu/mason-nvim-dap.nvim
       "jay-babu/mason-nvim-dap.nvim",
       optional = true,
       opts = function(_, opts)

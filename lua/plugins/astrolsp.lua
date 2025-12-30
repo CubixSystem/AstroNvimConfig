@@ -124,7 +124,7 @@ return {
         },
         buildFlags = { "-tags", "integration" },
         -- completeUnimported = true,
-        diagnosticsDelay = "500ms",
+        diagnosticsDelay = "1500ms",
         gofumpt = true,
         matcher = "Fuzzy",
         semanticTokens = true,
